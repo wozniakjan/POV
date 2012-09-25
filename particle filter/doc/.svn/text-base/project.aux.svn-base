@@ -1,0 +1,42 @@
+\relax 
+\ifx\hyper@anchor\@undefined
+\global \let \oldcontentsline\contentsline
+\gdef \contentsline#1#2#3#4{\oldcontentsline{#1}{#2}{#3}}
+\global \let \oldnewlabel\newlabel
+\gdef \newlabel#1#2{\newlabelxx{#1}#2}
+\gdef \newlabelxx#1#2#3#4#5#6{\oldnewlabel{#1}{{#2}{#3}}}
+\AtEndDocument{\let \contentsline\oldcontentsline
+\let \newlabel\oldnewlabel}
+\else
+\global \let \hyper@last\relax 
+\fi
+
+\catcode`"\active
+\catcode`-\active
+\citation{brief}
+\select@language{czech}
+\@writefile{toc}{\select@language{czech}}
+\@writefile{lof}{\select@language{czech}}
+\@writefile{lot}{\select@language{czech}}
+\select@language{english}
+\@writefile{toc}{\select@language{english}}
+\@writefile{lof}{\select@language{english}}
+\@writefile{lot}{\select@language{english}}
+\select@language{czech}
+\@writefile{toc}{\select@language{czech}}
+\@writefile{lof}{\select@language{czech}}
+\@writefile{lot}{\select@language{czech}}
+\@writefile{toc}{\contentsline {section}{\numberline {1}\IeC {\'U}vod}{1}{section.1}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Teorie}{1}{section.2}}
+\citation{wikipedia}
+\citation{wikipedia}
+\bibstyle{alpha}
+\bibdata{project}
+\bibcite{brief}{CLSF12}
+\newlabel{moje-rovnice}{{1}{2}{Binary Robust Independent Elementary Features\relax }{equation.2.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces N\IeC {\v e}jak\IeC {\'y} ten diagram, t\IeC {\v r}eba p\IeC {\v r}evzan\IeC {\'y} z \cite  {wikipedia}\relax }}{2}{figure.caption.6}}
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:obrazek}{{1}{2}{Nějaký ten diagram, třeba převzaný z \cite {wikipedia}\relax \relax }{figure.caption.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Vyhodnocen\IeC {\'\i }}{2}{section.3}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Z\IeC {\'a}v\IeC {\v e}r}{2}{section.4}}
+\bibcite{wikipedia}{Wik04}

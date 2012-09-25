@@ -1,0 +1,44 @@
+Cílem částicového filtru je odhadnutí stavových proměnných popisující sle-
+dovaný objekt na základě naměřených hodnot z dat. Samotné částicové fil-
+trování pak znamená, že je aproximována distribuční funkce neznámých pro-
+měnných pomocí částic, které reprezentují různě váhované vzorky distribuční
+funkce.
+
+CONDENSATION algoritmus (\cite{isard98}) se skládá z několika kroků, které jsou cyk-
+licky opakovány po dobu běhu trasování. V každém z nich je na konci kroku
+k dispozici aproximovaný stav objektu.
+
+První krok, který je teoreticky volán pouze jednou, je inicializační
+krok, ve kterém je inicializován model objektu a částice
+s uniformní pravděpodobností. V našem programu je inicializace prováděna
+vždy při ručním znovunainicializování uživatelem pomocí GUI.
+
+Stejně tak jako v původním CONDENSATION algoritmu je i naše částice
+ve tvaru $(sn , \pi_n, c_n )$, kde $s_n$ je prvek stavového prostoru, $\pi_n$ pravděpodobnost
+částice a $c_n$ kumulativní pravděpodobnost.
+
+\subsubsection*{Resampling}
+  V kroku vzorkování jsou vybrány částice, které nezaniknou a budou distribuovány
+  do dalších kroků algoritmu. Tyto částice vybíráme na základě jejich kumulativní 
+  pravděpodobnosti (rostoucí posloupnost čísel s $\pi_n$) a náhodně generovaného čísla
+  $r$ s uniformním rozložením.
+
+\subsubsection*{Dynamický model}
+  Dynamický model určuje způsob, jakým se mění stav částice mezi jednotlivými kroky.
+  Často používanými modely jsou autoregresivní rovnice prvního a druhého řádu, která 
+  je určena rovnicí 
+  $$X_{n} = A_0 * X_{n-1} + A_1 * X_{n-2} + B * w$$
+  kde $X_n$ je stav objektu v čase $n$, $A_0$,$A_1$, $B$ jsou koeficienty určující 
+  dynamiku modelu a $w$ je vektor náhodných standartních normálních proměnných.
+  Takto zapsaná rovnice určuje tzv. \uv{deterministický drift} a Brownovské pohyby
+  (zašumění).
+  
+\subsubsection*{Observační model}
+  Observační model určuje pravděpodobnost částice. Naším vybraným modelem je 
+  $$p(z_t | x_t = s_t) = e^{-\kappa * D[h_0, h_t]}$$
+  kde $D$ je metrikou na histogramech (euclidova vzdálenost, Bhattacharya, $\chi$-kvadrát, \ldots).
+  Koeficient $\kappa$ lze určit z dat pomocí MLE, ale touto možností jsme se nezabývali.
+
+\subsubsection*{Odhad}
+  Na konci každého kroku je možné provést odhad stavu, který je váhovanou sumou 
+  stavů částic a dostat tak \uv{průměrnou hodnotu}.

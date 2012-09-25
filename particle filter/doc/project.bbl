@@ -1,0 +1,23 @@
+\begin{thebibliography}{CLSF11}
+
+\bibitem[BIR95]{blake95}
+Andrew Blake, Michael Isard, and David Reynard.
+\newblock Learning to track the visual motion of contours.
+\newblock {\em Artificial Intelligence}, 78:101--134, 1995.
+
+\bibitem[CLSF11]{lbp}
+Michael Calonder, Vincent Lepetit, Christoph Strecha, and Pascal Fua.
+\newblock Brief: Binary robust independent elementary features, 2011.
+\newblock [Online; accessed 2-January-2012].
+
+\bibitem[IB98]{isard98}
+Michael Isard and Andrew Blake.
+\newblock Condensation - conditional density propagation for visual tracking.
+\newblock {\em International Journal of Computer Vision}, 29:5--28, 1998.
+
+\bibitem[PIP03]{brief}
+Matti Pietikäinen, Jukka Iivarinen, and Maria Petrou.
+\newblock The local binary pattern approach to texture analysis, 2003.
+\newblock [Online; accessed 2-January-2012].
+
+\end{thebibliography}

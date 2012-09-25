@@ -1,0 +1,92 @@
+%--------------------------------------------------------------------------------
+%\documentclass{article}
+
+\documentclass[12pt]{article}
+\usepackage[T1]{fontenc} 
+\usepackage[bf]{caption}
+\usepackage{hyperref}
+\usepackage[all]{hypcap}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[czech, english]{babel}
+\selectlanguage{czech}
+\usepackage{subfig}                % \subfloat
+\usepackage{color}
+\usepackage{url}
+\inputencoding{utf8}
+%\usepackage[bf]{caption2}
+\usepackage{hyperref}
+\usepackage[all]{hypcap}
+\hypersetup{colorlinks=false, linkbordercolor=1 1 1, citebordercolor=1 1 1}
+\usepackage[right]{lineno}
+\renewcommand\linenumberfont{\normalfont\tiny\color{blue}}
+
+
+\title{Sledování objektu v obraze s využitím částicového filtru}
+\author{Jan Hamrský <xhamrs00@stud.fit.vutbr.cz> \\
+        Václav Maliňák <xmalin19@stud.fit.vutbr.cz> \\
+        Jan Wozniak <xwozni00@fit.vutbr.cz>}
+\date{\today}
+
+
+%--------------------------------------------------------------------------------
+
+
+\begin{document}
+\selectlanguage{czech}
+\maketitle
+
+\section{Úvod}
+
+Cílem našeho projektu bylo vytvořit aplikaci schopnou sledovat pohybující se objekt v obraze pomocí částicového filtru, v našem případě varianty CONDENSATION algoritmu, a tu aplikovat na zvolenou
+úlohu. Jako tu jsme si vybrali sledování aut na cestě\footnote{jako data byly použity videa z projektu \url{http://www.eecs.qmul.ac.uk/~andrea/avss2007\_d.html}}. Uživatel aplikace označí v rámci videosekvence oblast, kde se nachází objekt zájmu a aplikace tento objekt sleduje a vizuálně jej označí. Příznaky extrahované z obrazu byly použity HSV histogram, LBP histogram a BRIEF.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Teorie}
+
+\subsection*{Particle filter}
+\input{pf.tex}
+
+\subsection*{Příznaky}
+Z obrazu jsou extrahovány příznaky pro přesnější sledování objektu. HSV histogram funguje velmi spolehlivě pro barevný obraz avšak nedokáže si poradit s problémem, kdy naprosto odlišný objekt má  podobné rozložení barevných složek a proto jsme se rozhodli najít jiný vhodný příznak, který by byl výpočetně nenáročný a reprezentoval by do jisté míry i strukturu hledaného objektu. 
+
+Textura oblasti v obraze může v daném problému sloužit jako velmi základní popis reflektující rovněž strukturu objektu, proto jsme se pokusili použít LBP histogram\cite{lbp}. Zkoušeli jsme dvě varianty LBP(8,1) rotačně invariantní a LBP(8,1) uniformní, a metriky $\chi^2$, L1, euklidovskou a Bhattacharya. Nejlepší výsledky podávaly uniformní LBP s metrikou L1.
+
+BRIEF\cite{brief} je obvykle používán jako deskriptor významných bodů v obraze pracující na principu náhodně vybraných porovnání dvojic bodů v okně pevné velikosti. Testovali jsme základní variantu s uniformním rozložením lokace bodů $(x_i, y_i)$, tedy $(-\frac{S}{2}, \frac{S}{2})$. Metriku pro BRIEF jsme použili Hammingovu.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Vyhodnocení}
+
+Pro výběr vhodných příznaků jsme si vytvořili databázi, na které jsme se změřili diskriminabilitu hledaných objektů pomocí turnajové selekce. Cílem našeho projektu bylo sledovat jedoucí automobil v záznamu z kamery na základě výběru uživatele.
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[scale=0.60]{all.png}
+  \caption{Graf distribuce vzdáleností.}
+  \label{graph}
+\end{figure}
+Na každém grafu z obrázku \ref{graph} jsou tři distribuční křivky, žlutá znázorňuje rozložení vzdáleností mezi příznaky hledaného objektu (obrázky konkrétního vozu), modrá mezi objektem a třídou těchto objektů (obrázky různých vozů), červená mezi objektem a okolím. Jak je z grafů patrné, LBP a HSV byly úspěšnější než BRIEF, proto jsme se pokusili spojit LBP a HSV. Podle distribuce by toto spojení mělo přinést zlepšení.
+
+Pokusili jsme se naimplementovat algoritmus CONDENSATION. Kroky jsme implementovali stejně tak, jako byly popsány v článku. Jako stav objektu jsme zvolili $\left[x,y\right]$. V rámci projektu jsme se také pokusili stanovit koeficienty dynamického modelu na základě článku \cite{blake95}. S pomocí programu \textit{ViPER}\footnote{\url{http://viper-toolkit.sourceforge.net/}} jsme provedli určení \textit{ground truth}. Kvůli námi nezjištěné chybě v programu nebylo možné získané koeficienty použít, protože chyba znemožňovala použití autoregresivní rovnice 2. řádu.
+
+O stanovení koeficientu $\kappa$ jsme se nepokoušeli.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Závěr}
+HSV příznaky i LBP příznaky samy o sobě by měly rozlišit objekt od okolí. Spojením těchto dvou příznaků bychom měli dosáhnout zlepšení diskriminačních vlastností, to se nám ale v částicovém filtru z časových důvodů nepodařilo ověřit.
+
+Algoritmus CONDENSATION je poměrně efektivní způsob pro sledování objektu v obraze, který funguje v téměř reálném čase v závislosti na velikosti inicializační oblasti a použitých příznacích. V rámci projektu se nám podařilo vytvořit sledování objektu na základě šumového modelu, ne však s použitím autoregresivní funkce 2. řádu. Původně zamýšlenou metriku překrytí detekovaných ploch s ground truth nebylo možné použít kvůli již uvedeným problémům.
+\bibliographystyle{alpha}
+\begin{flushleft}
+  \bibliography{project}
+\end{flushleft}
+
+%\appendix
+%\newpage
+%\section{}
+
+\end{document}

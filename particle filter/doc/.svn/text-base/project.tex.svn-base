@@ -1,0 +1,101 @@
+%--------------------------------------------------------------------------------
+%\documentclass{article}
+
+\documentclass[12pt]{article}
+\usepackage[T1]{fontenc} 
+\usepackage[bf]{caption}
+\usepackage{hyperref}
+\usepackage[all]{hypcap}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[czech, english]{babel}
+\selectlanguage{czech}
+\usepackage{subfig}                % \subfloat
+\usepackage{color}
+\usepackage{url}
+\inputencoding{utf8}
+%\usepackage[bf]{caption2}
+\usepackage{hyperref}
+\usepackage[all]{hypcap}
+\hypersetup{colorlinks=false, linkbordercolor=1 1 1, citebordercolor=1 1 1}
+\usepackage[right]{lineno}
+\renewcommand\linenumberfont{\normalfont\tiny\color{blue}}
+
+
+\title{Sledování objektu v obraze s využitím částicového filtru}
+\author{Jan Hamrský <xhamrs0000@stud.fit.vutbr.cz> \\
+        Václav Maliňák <xmalin19@stud.fit.vutbr.cz> \\
+        Jan Wozniak <xwozni00fit.vutbr.cz>}
+\date{\today}
+
+
+%--------------------------------------------------------------------------------
+
+
+\begin{document}
+\selectlanguage{czech}
+\maketitle
+
+\section{Úvod}
+
+Cílem našeho projektu bylo vytvořit aplikaci schopnou sledovat pohybující se objekt v obraze s využitím varianty CONDENSATION částicového filtru. Uživatel aplikace označí v rámci videosekvence oblast, kde se nachází objekt zájmu a aplikace tento objekt sleduje a vizuálně jej označí. Příznaky extrahované z obrazu byly použity HSV histogram, LBP histogram a BRIEF.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Teorie}
+
+\subsection*{Particle filter}
+
+\subsection*{Příznaky}
+Z obrazu jsou extrahovány příznaky pro přesnější sledování objektu. HSV histogram funguje velmi spolehlivě pro barevný obraz avšak nedokáže si poradit s problémem, kdy naprosto odlišný objekt má pouze podobné rozložení barevných složek a proto jsme se rozhodli najít vhodný příznak, který by byl výpočetně nenáročný a reprezentoval by do jisté míry i strukturu tohoto objektu. 
+
+Textura oblasti v obraze může v daném problému sloužit jako velmi základní popis reflektující rovněž strukturu objektu, proto jsme se pokusili použít LBP histogram. 
+
+BRIEF\cite{brief} je obvykle používán jako deskriptor významných bodů v obraze. *** Jelikož se jedna o statickou kameru, lokalizujeme jen pohyblivy objekt a extrahuju z nej brief. *** 
+
+\subsubsection*{Hue Saturation Value histogram}
+
+\subsubsection*{Local Binary Pattern histogram}
+
+\subsubsection*{Binary Robust Independent Elementary Features}
+
+\begin{equation}
+  \label{moje-rovnice}
+  c = a + b
+\end{equation}
+
+Na obrázku \ref{fig:obrazek} je ukázané jak to funguje. Nějaké schémátko pipeline..
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=5cm,keepaspectratio]{obrazek.jpg}
+  \caption{Nějaký ten diagram, třeba převzaný z \cite{wikipedia}}
+  \label{fig:obrazek}
+\end{figure}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Vyhodnocení}
+
+Tady by mělo být napsané jak to funguje. Protože se jedná o počítačovou grafiku nebo 
+vidění, tak by tady měl byt screenshot, ze ktereho bude poznat jak to funguje.
+K tomu by měla být idealně tabulka s vyhodnocením jak přesně/rychle to funguje. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Závěr}
+
+Tady by mělo být stručně napsané jak to funguje.
+
+
+\bibliographystyle{alpha}
+\begin{flushleft}
+  \bibliography{project}
+\end{flushleft}
+
+%\appendix
+%\newpage
+%\section{}
+
+\end{document}
